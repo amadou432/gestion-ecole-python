@@ -1,9 +1,51 @@
-etudiant=[]
+base_etudiants=[]
+base_classes=[]
 
-def menu():
+def menu_principale():
+    print("1-Menu classe")
+    print("1-Menu Etudiant")
+    print("5-Quitter le programme")
+    Choix=int(input("Choix = "))
+    return Choix
+
+def menu_classe():
+    print("1-Créer une classe")
+    print("2-Supprimer une classes")
+    print("3-Afficher la liste complète des classes")
+    print("4-Afficher les détails d'une classe")
+    print("5-Quitter le programme")
+    Choix=int(input("Choix = "))
+    return Choix
+
+def ajouter_classe(base_classes):
+    id=input("Donner l'ID de la classe: ")
+    nom=input("Donner le nom de la classe: ")
+    niveau=input("Donner l'ID de la classe: ")
+    base_classes.append(id)
+    base_classes.append(nom)
+    base_classes.append(niveau)
+    print("La classe a été ajouté avec succès.")
+
+
+
+def supprimer_classe(base_classes):
+    print(base_classes)
+    supp=input("Donner l'ID de la classe a supprimer: ")
+    if supp in base_classes:
+        base_classes.remove(supp)
+        print("La classe a été  supprimer avec succès.")
+    else:
+        print("L'ID de la classe que vous avez donner n'est pas dans la liste.")
+
+def afficher_classe(base_classes):
+    print("Voici la liste des classes existante: \n")
+    for i in base_classes:
+        print(i)
+
+def menu_etudiant():
     print("1-Ajouter un étudiant")
     print("2-Supprimer un étudiant")
-    print("3-afficher la liste complète des étudiants")
+    print("3-Afficher la liste complète des étudiants")
     print("4-chercher un étudiant par son nom")
     print("5-Quitter le programme")
     Choix=int(input("Choix = "))
@@ -41,28 +83,7 @@ def rechercher_etudiant(etudiant):
 
 Choix=0
 
-while Choix != 5:
-    Choix=menu()
-    match Choix:
-        case 1:
-            ajouter_etudiant(etudiant)
-            
-        case 2:
-            afficher_etudiant(etudiant)
-            supprimer_etudiant(etudiant)
-           
 
-        case 3:
-            afficher_etudiant(etudiant)
-            
-
-        case 4:
-            rechercher_etudiant(etudiant)
-            
-
-        case 5:
-            break
-    
                 
 
 
