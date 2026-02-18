@@ -1,10 +1,22 @@
-base_etudiants=[]
-base_classes=[]
+base_etudiants = [
+    "Lucas Bernard", 
+    "Emma Petit", 
+    "Thomas Lefebvre", 
+    "Chloé Moreau", 
+    "Adam Garcia"
+]
+base_classes = [
+    {"id": "001", "nom": "Terminale C", "niveau": "Lycée", "etudiants": []},
+    {"id": "002", "nom": "BTS SIO 1", "niveau": "Supérieur", "etudiants": []},
+    {"id": "003", "nom": "Licence Info", "niveau": "Supérieur", "etudiants": []},
+    {"id": "004", "nom": "CM2 B", "niveau": "Primaire", "etudiants": []},
+    {"id": "005", "nom": "Classe Prépa", "niveau": "Supérieur", "etudiants": []}
+]
 
 def menu_principale():
     print("1-Menu classe")
-    print("1-Menu Etudiant")
-    print("5-Quitter le programme")
+    print("2-Menu Etudiant")
+    print("3-Quitter le programme")
     Choix=int(input("Choix = "))
     return Choix
 
@@ -14,33 +26,50 @@ def menu_classe():
     print("3-Afficher la liste complète des classes")
     print("4-Afficher les détails d'une classe")
     print("5-Quitter le programme")
-    Choix=int(input("Choix = "))
-    return Choix
+    choix=int(input("Choix = "))
+    return choix
 
 def ajouter_classe(base_classes):
-    id=input("Donner l'ID de la classe: ")
-    nom=input("Donner le nom de la classe: ")
-    niveau=input("Donner l'ID de la classe: ")
-    base_classes.append(id)
-    base_classes.append(nom)
-    base_classes.append(niveau)
-    print("La classe a été ajouté avec succès.")
-
-
+    id = input("Donner l'ID de la classe: ")
+    nom = input("Donner le nom de la classe: ")
+    niveau = input("Donner le niveau de la classe: ")
+    nouvelle_classe = {
+        "id": id,
+        "nom": nom,
+        "niveau": niveau,
+        "etudiants": [] 
+    }
+    
+    base_classes.append(nouvelle_classe)
+    print(f"La classe '{nom}' a été ajoutée avec succès.")
 
 def supprimer_classe(base_classes):
-    print(base_classes)
+    afficher_classe(base_classes)
     supp=input("Donner l'ID de la classe a supprimer: ")
-    if supp in base_classes:
-        base_classes.remove(supp)
-        print("La classe a été  supprimer avec succès.")
-    else:
+    exist=False
+    for i in base_classes:
+        if i["id"] == supp:
+            base_classes.remove(i)
+            print("La classe a été  supprimer avec succès.")
+            exist=True
+    if not exist :
         print("L'ID de la classe que vous avez donner n'est pas dans la liste.")
 
 def afficher_classe(base_classes):
     print("Voici la liste des classes existante: \n")
     for i in base_classes:
-        print(i)
+        print("| ID: ",i["id"]," | Nom: ",i["nom"]," |")
+
+def details_classe(base_classes):
+    afficher_classe(base_classes)
+    c=input("Doneer l'id de la classe dont vous voulez voir les détails: ")
+    exist=False
+    for i in base_classes:
+        if i["id"] == c:
+            print("| ID: ",i["id"]," | Nom: ",i["nom"]," | niveau: ",i["niveau"]," |")
+            exist=True
+    if not exist :
+        print("L'ID de la classe que vous avez donner n'est pas dans la liste.")
 
 def menu_etudiant():
     print("1-Ajouter un étudiant")
@@ -79,11 +108,42 @@ def rechercher_etudiant(etudiant):
     else:
         print("Le nom de l'etudiant que vous rechercher n'est pas dans la liste.")
 
+while True:
+    choix=menu_principale()    
+    match choix:
+        case 1:
+            choix=menu_classe()
+            if choix == 1:
+                ajouter_classe(base_classes)
+            elif choix == 2:
+                supprimer_classe(base_classes)
+            elif choix == 3:
+                afficher_classe(base_classes)
+            elif choix == 4:
+                details_classe(base_classes)
+            elif choix == 5:
+                print("AU revoir!")
+                break
+                
+        case 2:
+            choix=menu_etudiant()
+            if choix ==1:
+                ajouter_etudiant(base_etudiants)
+            elif choix == 2:
+                supprimer_etudiant(base_etudiants)
+            elif choix == 3:
+                afficher_etudiant(base_etudiants)
+            elif choix == 4:
+                rechercher_etudiant(base_etudiants)
+            elif choix == 5:
+                print("AU revoir!")
+                break
+        case 3:
+            print("Au revoir !")
+            break 
+                
 
-
-Choix=0
-
-
+    
                 
 
 
