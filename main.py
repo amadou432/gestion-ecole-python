@@ -16,19 +16,25 @@ base_classes = [
 ]
 
 def menu_principale():
-    print("1-Menu classe")
-    print("2-Menu Etudiant")
-    print("3-Quitter le programme")
+    print("------------------------------------------")
+    print("|        1-Menu classe                   |")
+    print("|        2-Menu Etudiant                 |")
+    print("|        3-Quitter le programme          |")
+    print("------------------------------------------")
+
     Choix=int(input("Choix = "))
     return Choix
 
 def menu_classe():
-    print("1-Créer une classe")
-    print("2-Supprimer une classes")
-    print("3-Afficher la liste complète des classes")
-    print("4-Afficher les détails d'une classe")
-    print("5-Ajouter un étudiant dans une classe")
-    print("6-Quitter le programme")
+    print("----------------------------------------------------")
+    print("|        1-Créer une classe                        |")
+    print("|        2-Supprimer une classes                   |")
+    print("|        3-Afficher la liste complète des classes  |")
+    print("|        4-Afficher les détails d'une classe       |")
+    print("|        5-Ajouter un étudiant dans une classe     |")
+    print("|        6-Quitter le programme                    |")
+    print("----------------------------------------------------")
+
     choix=int(input("Choix = "))
     return choix
 
@@ -103,14 +109,20 @@ def ajouter_etudiant_classe():
         print("L'Id de la classe que vous avez donner n'est pas sur la liste!")
             
 def menu_etudiant():
-    print("1-Ajouter un étudiant")
-    print("2-Supprimer un étudiant")
-    print("3-Afficher la liste des étudiants d’une classe")
-    print("4-Afficher la liste complète des étudiants")
-    print("5-chercher un étudiant par son nom")
-    print("6-Afficher les informations d’un étudiant")
-    print("7-Quitter le programme")
+    print("----------------------------------------------------------")
+    print("|        1-Ajouter un étudiant                           |")
+    print("|        2-Supprimer un étudiant                         |")
+    print("|        3-Afficher la liste des étudiants d’une classe  |")
+    print("|        4-Afficher la liste complète des étudiants      |")
+    print("|        5-chercher un étudiant par son nom              |")
+    print("|        6-Afficher les informations d’un étudiant       |")
+    print("|        7-Gerer les notes d'un étudiant                 |")
+    print("|        8-Modifier les informations d'un étudiant       |")
+    print("|        9-Quitter le programme                          |")
+    print("----------------------------------------------------------")
+
     Choix=int(input("Choix = "))
+    
     return Choix
 
 def ajouter_etudiant():
@@ -190,6 +202,84 @@ def rechercher_etudiant(etudiant):
             return
     print("Étudiant introuvable.")
 
+def gerer_notes_etudiant():
+    afficher_etudiant()
+    id = input("Donner l'ID de l'étudiant dont vous vouler gerer la note: ")
+    trouve=False
+
+
+
+    for et in base_etudiants:
+        if et["id"] == id:
+            trouve=True
+            id_note=id
+            print("Étudiant :", et["nom"])
+            print("Note actuelle :", et["note"])
+            print("Voulez vous modifier la note de l'étudiant?")
+            print("1-Oui")
+            print("2-Non")
+            choix=int(input("Choix: "))
+            if choix == 1:
+                
+                try:
+                    note = float(input("Entrer une nouvelle note : "))
+                    if note < 0 or note > 20:
+                        print("La note doit être entre 0 et 20.")
+                        return
+                    str(note)
+                    et["note"] = note
+                    print("Note ajoutée avec succès.")
+                    return
+                except ValueError:
+                    print("Veuillez entrer un nombre valide.")
+                    return
+            if choix == 2:
+                break
+    if not trouve:
+        print("etudiant introuvable!")
+
+def modifier_etudiant():
+    afficher_etudiant()
+    id = input("Donner l'ID de l'étudiant à modifier : ")
+
+    for et in base_etudiants:
+        if et["id"] == id:
+            print("l'etudiant a été trouvé :", et)
+
+            print("\nQue voulez-vous modifier ?")
+            print("1 - Nom")
+            print("2 - Note")
+            print("3 - Classe")
+            print("4 - Tout modifier")
+
+            choix = input("Votre choix : ")
+
+            if choix == "1":
+                nouveau_nom = input("Nouveau nom : ")
+                et["nom"] = nouveau_nom
+
+            elif choix == "2":
+                nouvelle_note = input("Nouvelle note : ")
+                et["note"] = nouvelle_note
+
+            elif choix == "3":
+                nouvelle_classe = input("Nouvelle classe : ")
+                et["classe"] = nouvelle_classe
+
+            elif choix == "4":
+                et["nom"] = input("Nouveau nom de l'etudiant: ")
+                et["note"] = input("Nouvelle note de l'etudiant: ")
+                et["classe"] = input("Nouvelle classe de l'etudiant: ")
+
+            else:
+                print("Choix invalide.")
+                return
+
+            print("Les informations de l'étudiant ont été mises à jour avec succès.")
+            print("Voici les nouvelles informations de l'étudiant :", et)
+            return
+
+    print("Aucun étudiant trouvé avec cet ID.")
 
 while True:
     choix=menu_principale()    
@@ -226,6 +316,10 @@ while True:
             elif choix == 6:
                 afficher_info_etudiant()
             elif choix == 7:
+                modifier_etudiant()
+            elif choix == 8:
+                gerer_notes_etudiant()
+            elif choix == 9:
                 print("Au revoir !")
                 break     
                 
